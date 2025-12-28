@@ -5,8 +5,8 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 ## Key Information
 
 - **Type:** VS Code Extension
-- **Mode:** BYOK (Bring Your Own Key)
-- **Analysis:** Local using Claude Agent SDK
+- **Mode:** PeakInfer Token (Credits)
+- **Analysis:** Calls peakinfer.com API
 
 ---
 
@@ -15,8 +15,8 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 ### What This Extension Does
 
 1. User triggers analysis (command or on-save)
-2. Reads API key from settings or `ANTHROPIC_API_KEY` env var
-3. Calls Claude Agent SDK with unified-analyzer prompt
+2. Reads PeakInfer token from settings or `PEAKINFER_TOKEN` env var
+3. Calls `peakinfer.com/api/analyze` with code
 4. Displays results as VS Code diagnostics
 5. Shows results in webview panel
 
@@ -24,7 +24,7 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 
 - **Inline Diagnostics:** Squiggly lines in editor
 - **Results Panel:** Comprehensive analysis view
-- **Configurable Model:** Default `claude-sonnet-4-latest`
+- **Credit System:** Uses PeakInfer credits (50 free, then $19-$499 packs)
 - **Error/Loading States:** Spinner, retry button, help text
 
 ---
@@ -34,7 +34,7 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 | File | Purpose |
 |------|---------|
 | `src/extension.ts` | Activation, command registration |
-| `src/analysis.ts` | AnalysisRunner with Claude Agent SDK |
+| `src/analysis.ts` | AnalysisRunner with API call |
 | `src/diagnostics.ts` | VS Code diagnostics integration |
 | `src/views/resultsPanel.ts` | Webview panel with states |
 | `package.json` | Commands, settings, keybindings |
@@ -45,8 +45,7 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `peakinfer.anthropicApiKey` | `""` | Anthropic API key |
-| `peakinfer.model` | `claude-sonnet-4-latest` | Claude model |
+| `peakinfer.token` | `""` | PeakInfer token (or use env var) |
 | `peakinfer.analyzeOnSave` | `false` | Auto-analyze on save |
 | `peakinfer.showInlineHints` | `true` | Show inline hints |
 | `peakinfer.severityThreshold` | `warning` | Minimum severity |
@@ -62,11 +61,29 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 | `peakinfer.analyzeWorkspace` | Analyze entire workspace |
 | `peakinfer.showResults` | Show results panel |
 | `peakinfer.clearDiagnostics` | Clear diagnostics |
-| `peakinfer.setApiKey` | Set Anthropic API key |
+| `peakinfer.setToken` | Set PeakInfer token |
 
 ---
 
-## Session Memory (Last Updated: December 28, 2025)
+## Pricing
+
+Same as GitHub Action:
+
+| Pack | Price | Credits |
+|------|-------|---------|
+| Free | $0 | 50 (one-time, 6-month expiry) |
+| Starter | $19 | 200 |
+| Growth | $49 | 600 |
+| Scale | $149 | 2,000 |
+| Mega | $499 | 10,000 |
+
+Credits are shared across VS Code and GitHub Action.
+
+Get token at [peakinfer.com/dashboard](https://peakinfer.com/dashboard)
+
+---
+
+## Session Memory (Last Updated: December 29, 2025)
 
 ### Current State
 
@@ -74,32 +91,31 @@ This is the **peakinfer-vscode** (VS Code Extension) repository.
 
 ### Work Completed This Session
 
-**Files Modified:**
-- `package.json` - Added `peakinfer.model` configuration setting
-- `src/analysis.ts` - Made model configurable (was hardcoded)
-- `src/views/resultsPanel.ts` - Added error/loading states
+**Strategy Change:**
+- Changed from BYOK (Anthropic API key) to PeakInfer token (credits)
+- Same pricing model as GitHub Action
+- Credits shared across VS Code and GitHub Action
 
-**Key Changes:**
-- Model now configurable via settings (default: `claude-sonnet-4-latest`)
-- Results panel shows loading spinner during analysis
-- Results panel shows error state with retry button and help text
+**Files Modified:**
+- `README.md` - Updated setup and pricing sections
+- `CLAUDE.md` - Updated to reflect token-based auth
 
 ### Cross-Repo Context
 
-| Repository | Role | Status |
-|------------|------|--------|
-| `peakinfer/` (CLI) | Public, BYOK | ✅ Complete |
-| `peakinfer-mcp/` | MCP Server (separate) | ✅ Complete |
-| `peakinfer-action/` | Public, API client | ✅ Complete |
-| `peakinfer-site/` | Private, API + Website | ✅ Complete |
-| `peakinfer-vscode/` (this repo) | VS Code Extension | ✅ Complete |
-| `peakinfer_templates/` | Community templates | ✅ Complete |
+| Repository | Role | Auth Mode | Status |
+|------------|------|-----------|--------|
+| `peakinfer/` (CLI) | CLI | BYOK | ✅ Complete |
+| `peakinfer-mcp/` | MCP Server | BYOK | ✅ Complete |
+| `peakinfer-action/` | GitHub Action | PeakInfer Token | ✅ Complete |
+| `peakinfer-site/` | API + Website | - | ✅ Complete |
+| `peakinfer-vscode/` (this repo) | VS Code Extension | PeakInfer Token | ✅ Complete |
+| `peakinfer_templates/` | Templates | - | ✅ Complete |
 
 ### Important Context
 
-1. **True BYOK** - analysis runs locally with user's API key
-2. **Supports both** settings AND env var for API key
-3. **Model configurable** - `peakinfer.model` setting
+1. **PeakInfer Token** - calls peakinfer.com API (NOT local BYOK)
+2. **Credit System** - same as GitHub Action (50 free, then paid)
+3. **Token from** settings OR `PEAKINFER_TOKEN` env var
 4. **Error states** - showLoading(), showError(), retry button
 
 ### Reference Documents

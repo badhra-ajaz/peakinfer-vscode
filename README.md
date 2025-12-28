@@ -28,23 +28,25 @@ Your code says `streaming: true`. Runtime shows 0% actual streams. That's drift�
 
 ## Setup
 
-PeakInfer uses Claude for semantic code analysis. Configure your Anthropic API key:
+Get your PeakInfer token at [peakinfer.com/dashboard](https://peakinfer.com/dashboard) — sign in with GitHub, generate token.
 
-### Option 1: VS Code Settings (Recommended)
+*50 free credits included. No credit card.*
+
+### Configure Your Token
+
+**Option 1: VS Code Settings (Recommended)**
 
 1. Open Settings (Cmd+, / Ctrl+,)
 2. Search "PeakInfer"
-3. Enter your API key in "Anthropic Api Key"
+3. Enter your token in "PeakInfer Token"
 
-### Option 2: Environment Variable
+**Option 2: Environment Variable**
 
-Set `ANTHROPIC_API_KEY` in your shell:
+Set `PEAKINFER_TOKEN` in your shell:
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-your-key-here
+export PEAKINFER_TOKEN=pk_your-token-here
 ```
-
-Get your API key at [console.anthropic.com](https://console.anthropic.com/).
 
 ## Usage
 
@@ -78,8 +80,7 @@ PeakInfer analyzes every inference point across 4 dimensions:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `peakinfer.anthropicApiKey` | `""` | Anthropic API key (or use env var) |
-| `peakinfer.model` | `claude-sonnet-4-latest` | Claude model for analysis |
+| `peakinfer.token` | `""` | PeakInfer token (or use env var) |
 | `peakinfer.analyzeOnSave` | `false` | Auto-analyze on file save |
 | `peakinfer.showInlineHints` | `true` | Show inline hints for issues |
 | `peakinfer.severityThreshold` | `warning` | Minimum severity to show |
@@ -94,7 +95,7 @@ PeakInfer analyzes every inference point across 4 dimensions:
 | `PeakInfer: Analyze Workspace` | Analyze entire workspace |
 | `PeakInfer: Show Results Panel` | Open results panel |
 | `PeakInfer: Clear Diagnostics` | Clear all diagnostics |
-| `PeakInfer: Set Anthropic API Key` | Configure API key |
+| `PeakInfer: Set Token` | Configure PeakInfer token |
 
 ## Supported Providers
 
@@ -106,15 +107,23 @@ PeakInfer analyzes every inference point across 4 dimensions:
 - vLLM, TensorRT-LLM (HTTP detection)
 - LangChain, LlamaIndex (framework detection)
 
-## Privacy
+## Pricing
 
-All analysis runs locally using your Anthropic API key. **No code is sent to PeakInfer servers.** Your code stays on your machine.
+Same as GitHub Action:
+- **Free**: 50 credits one-time (6-month expiry)
+- **Starter**: $19 for 200 credits
+- **Growth**: $49 for 600 credits
+- **Scale**: $149 for 2,000 credits
+
+Credits are shared across VS Code and GitHub Action.
+
+[View pricing →](https://peakinfer.com/pricing)
 
 ## Troubleshooting
 
 ### No diagnostics appearing
 
-1. Check API key is configured (Settings or env var)
+1. Check token is configured (Settings or env var)
 2. Ensure file contains LLM API calls
 3. Check Output panel for errors (View > Output > PeakInfer)
 
@@ -122,15 +131,16 @@ All analysis runs locally using your Anthropic API key. **No code is sent to Pea
 
 Large files may take 10-30 seconds. Check Output panel for progress.
 
-### Rate limits
+### Insufficient credits
 
-If you see rate limit errors, wait a moment and try again.
+Check balance at [peakinfer.com/dashboard](https://peakinfer.com/dashboard)
 
 ## Links
 
 - [PeakInfer CLI](https://github.com/Kalmantic/peakinfer)
 - [PeakInfer MCP Server](https://github.com/Kalmantic/peakinfer-mcp)
-- [Documentation](https://github.com/Kalmantic/peakinfer#readme)
+- [GitHub Action](https://github.com/Kalmantic/peakinfer-action)
+- [Get Token](https://peakinfer.com/dashboard)
 - [Report Issues](https://github.com/Kalmantic/peakinfer-vscode/issues)
 
 ## License
