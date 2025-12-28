@@ -1,12 +1,21 @@
 # PeakInfer for VS Code
 
-Analyze LLM inference points in your code for cost, latency, throughput, and reliability issues - directly in VS Code.
+**Achieve peak inference performance—directly in your editor.**
+
+PeakInfer analyzes every LLM inference point in your code to find what's holding back your latency, throughput, and reliability.
+
+## The Problem
+
+Your code says `streaming: true`. Runtime shows 0% actual streams. That's drift—and you can't see it until production.
+
+**Peak Inference Performance means:** Improving latency, throughput, reliability, and cost *without changing evaluated behavior*.
 
 ## Features
 
-- **Inline Diagnostics**: See issues highlighted in your code
-- **Results Panel**: Comprehensive analysis view
-- **Benchmark Comparison**: Compare to InferenceMAX benchmarks
+- **Inline Diagnostics**: See performance issues highlighted in your code
+- **Drift Detection**: Find mismatches between code declarations and runtime behavior
+- **Results Panel**: Comprehensive analysis view with actionable recommendations
+- **Benchmark Comparison**: Compare to InferenceMAX benchmarks (15+ models)
 - **Multiple Languages**: TypeScript, JavaScript, Python, Go, Rust
 
 ## Installation
@@ -19,7 +28,7 @@ Analyze LLM inference points in your code for cost, latency, throughput, and rel
 
 ## Setup
 
-PeakInfer uses Claude for semantic analysis. Configure your Anthropic API key:
+PeakInfer uses Claude for semantic code analysis. Configure your Anthropic API key:
 
 ### Option 1: VS Code Settings (Recommended)
 
@@ -54,15 +63,26 @@ Get your API key at [console.anthropic.com](https://console.anthropic.com/).
 
 - Command Palette: `PeakInfer: Show Results Panel`
 
+## The Four Dimensions
+
+PeakInfer analyzes every inference point across 4 dimensions:
+
+| Dimension | What We Find |
+|-----------|--------------|
+| **Latency** | Missing streaming, blocking calls, p95 vs benchmark gaps |
+| **Throughput** | Sequential bottlenecks, batch opportunities |
+| **Reliability** | Missing retries, timeouts, fallbacks |
+| **Cost** | Right-sized model selection, token optimization |
+
 ## Settings
 
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `peakinfer.anthropicApiKey` | `""` | Anthropic API key (or use env var) |
+| `peakinfer.model` | `claude-sonnet-4-latest` | Claude model for analysis |
 | `peakinfer.analyzeOnSave` | `false` | Auto-analyze on file save |
 | `peakinfer.showInlineHints` | `true` | Show inline hints for issues |
 | `peakinfer.severityThreshold` | `warning` | Minimum severity to show |
-| `peakinfer.model` | `claude-sonnet-4-latest` | Claude model for analysis |
 | `peakinfer.includeBenchmarks` | `true` | Include benchmark comparisons |
 | `peakinfer.excludePatterns` | `["**/node_modules/**", ...]` | Patterns to exclude |
 
@@ -76,20 +96,9 @@ Get your API key at [console.anthropic.com](https://console.anthropic.com/).
 | `PeakInfer: Clear Diagnostics` | Clear all diagnostics |
 | `PeakInfer: Set Anthropic API Key` | Configure API key |
 
-## What It Finds
-
-PeakInfer analyzes every LLM inference point across 4 dimensions:
-
-| Dimension | Examples |
-|-----------|----------|
-| **Cost** | GPT-4 used for tasks GPT-3.5 could handle |
-| **Latency** | Missing streaming, blocking calls |
-| **Throughput** | Sequential loops that could be parallel |
-| **Reliability** | No retry, no timeout, no fallback |
-
 ## Supported Providers
 
-- OpenAI (GPT-4, GPT-3.5, etc.)
+- OpenAI (GPT-4o, GPT-4, GPT-3.5, etc.)
 - Anthropic (Claude)
 - Azure OpenAI
 - AWS Bedrock
@@ -99,7 +108,7 @@ PeakInfer analyzes every LLM inference point across 4 dimensions:
 
 ## Privacy
 
-All analysis runs locally using your Anthropic API key. No code is sent to PeakInfer servers.
+All analysis runs locally using your Anthropic API key. **No code is sent to PeakInfer servers.** Your code stays on your machine.
 
 ## Troubleshooting
 
@@ -119,10 +128,11 @@ If you see rate limit errors, wait a moment and try again.
 
 ## Links
 
-- [GitHub](https://github.com/Kalmantic/peakinfer)
+- [PeakInfer CLI](https://github.com/Kalmantic/peakinfer)
+- [PeakInfer MCP Server](https://github.com/Kalmantic/peakinfer-mcp)
 - [Documentation](https://github.com/Kalmantic/peakinfer#readme)
-- [Report Issues](https://github.com/Kalmantic/peakinfer/issues)
+- [Report Issues](https://github.com/Kalmantic/peakinfer-vscode/issues)
 
 ## License
 
-Apache-2.0 - See [LICENSE](https://github.com/Kalmantic/peakinfer/blob/main/LICENSE)
+Apache-2.0
