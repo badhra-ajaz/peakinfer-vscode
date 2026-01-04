@@ -4,6 +4,7 @@
   "description": "LLM inference analysis - find cost waste, latency issues, and reliability gaps",
   "version": "1.0.0",
   "publisher": "kalmantic",
+  "license": "Apache-2.0",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.85.0"
@@ -23,6 +24,7 @@
     "performance",
     "optimization"
   ],
+  "author": "Kalmantic AI Labs",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kalmantic/peakinfer-vscode"
